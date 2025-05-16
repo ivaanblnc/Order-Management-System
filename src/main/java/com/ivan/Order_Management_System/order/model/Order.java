@@ -3,12 +3,15 @@ package com.ivan.Order_Management_System.order.model;
 
 import com.ivan.Order_Management_System.auth.model.User;
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Data
 @Entity
+@Table(name = "customer_order")
 public class Order {
 
     @Id

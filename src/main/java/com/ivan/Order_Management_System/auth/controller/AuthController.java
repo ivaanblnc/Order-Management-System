@@ -43,8 +43,9 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<DTOJwtResponse> login(@RequestBody DTOUserLogin loginRequest) {
+    @GetMapping("/login")
+    public ResponseEntity<DTOJwtResponse> login(@RequestBody DTOUserLogin loginRequest)
+    {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
         );
