@@ -1,35 +1,32 @@
 package com.ivan.Order_Management_System.auth.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.Data;
 
+import java.util.Set;
+
+@Data
 @Entity
+@Table(name = "role")
 public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 
-    private String description;
+    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private Set<User> users;
 
-    public Role() {
-    }
-
-    public Role(String name) {
-        this.name = name;
-    }
-
-    public Role(String name, String description) {
-        this.name = name;
-        this.description = description;
-    }
+    public Role() {}
 
     public int getId() {
         return id;
     }
-
 
     public String getName() {
         return name;
@@ -39,21 +36,11 @@ public class Role {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public Set<User> getUsers() {
+        return users;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
-
-    @Override
-    public String toString() {
-        return "Role{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                '}';
-    }
-
 }

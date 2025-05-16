@@ -2,21 +2,20 @@ package com.ivan.Order_Management_System.auth.dto;
 
 public class DTOUser {
     private String username;
-    private String password;
     private String email;
     private String fullName;
-    private String role;
+    private String roleName;
+    private String password;
 
-    public DTOUser() { }
+    public DTOUser() {}
 
-    public DTOUser(String username, String password, String email, String fullName, String role) {
+    public DTOUser(String username, String email, String fullName, String roleName, String password) {
         this.username = username;
-        this.password = password;
         this.email = email;
         this.fullName = fullName;
-        this.role = role;
+        this.roleName = roleName;
+        this.password = password;
     }
-
 
     public String getUsername() {
         return username;
@@ -24,14 +23,6 @@ public class DTOUser {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getEmail() {
@@ -50,13 +41,19 @@ public class DTOUser {
         this.fullName = fullName;
     }
 
-    public String getRole() {
-        return role;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
+    public String getPassword() {
+        return password;
+    }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

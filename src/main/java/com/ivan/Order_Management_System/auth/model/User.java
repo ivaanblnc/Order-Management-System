@@ -1,5 +1,6 @@
 package com.ivan.Order_Management_System.auth.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -25,28 +26,21 @@ public class User {
 
     private String fullName;
 
-    private String role;
-
     private LocalDateTime createdAt;
 
     private String state;
 
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    @JsonBackReference
+    private Role role;
+
+
     public User() {}
 
-    public User(String username, String password, String email, String fullName, String role, LocalDateTime createdAt, String state) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.fullName = fullName;
-        this.role = role;
-        this.createdAt = createdAt;
-        this.state = state;
-    }
-
     public int getId() {
-        return  id;
+        return id;
     }
-
 
     public String getUsername() {
         return username;
@@ -80,11 +74,11 @@ public class User {
         this.fullName = fullName;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
