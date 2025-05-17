@@ -1,6 +1,7 @@
 package com.ivan.Order_Management_System.order.model;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.ivan.Order_Management_System.auth.model.User;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -28,6 +29,7 @@ public class Order {
     private String status;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<OrderItem> orderItems;
 
     public Order() {}

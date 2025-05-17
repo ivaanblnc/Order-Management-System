@@ -1,5 +1,7 @@
 package com.ivan.Order_Management_System.order.dto;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -10,6 +12,7 @@ public class DTOOrder {
     private LocalDateTime orderDate;
     private BigDecimal totalAmount;
     private String status;
+
     private List<DTOOrderItem> orderItems;
 
     public DTOOrder() {}

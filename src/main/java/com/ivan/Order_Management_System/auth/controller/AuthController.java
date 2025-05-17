@@ -43,7 +43,7 @@ public class AuthController {
         }
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<DTOJwtResponse> login(@RequestBody DTOUserLogin loginRequest)
     {
         Authentication authentication = authenticationManager.authenticate(

@@ -2,6 +2,8 @@ package com.ivan.Order_Management_System.auth.service;
 
 import com.ivan.Order_Management_System.auth.dto.DTOUser;
 import com.ivan.Order_Management_System.auth.model.User;
+import com.ivan.Order_Management_System.auth.model.Role;
+import com.ivan.Order_Management_System.auth.repository.RoleRepository;
 import com.ivan.Order_Management_System.auth.repository.UserRepository;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,11 +19,12 @@ import java.util.List;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
-    // Constructor injection
-    public UserDetailsServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserDetailsServiceImpl(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -33,7 +36,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
                 user.getPassword(),
-                List.of(new SimpleGrantedAuthority(user.getRole()))
+                List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().getName()))
         );
     }
 
@@ -49,12 +52,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new IllegalArgumentException("La contraseña debe tener al menos 8 caracteres");
         }
 
+        Role role = roleRepository.findByName(newUser.getRoleName())
+                .orElseThrow(() -> new IllegalArgumentException("Rol no válido"));
+
         User user = new User();
         user.setUsername(newUser.getUsername());
         user.setEmail(newUser.getEmail());
         user.setFullName(newUser.getFullName());
-        user.setRole(newUser.getRole());
+        user.setRole(role);
         user.setPassword(passwordEncoder.encode(newUser.getPassword()));
+        user.setState("ACTIVE");
+        user.setCreatedAt(java.time.LocalDateTime.now());
 
         return userRepository.save(user);
     }

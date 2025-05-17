@@ -1,5 +1,6 @@
 package com.ivan.Order_Management_System.order.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.ivan.Order_Management_System.product.model.Product;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
@@ -15,6 +16,7 @@ public class OrderItem {
     private Product product;
 
     @ManyToOne(optional = false)
+    @JsonBackReference
     private Order order;
 
     private int quantity;
