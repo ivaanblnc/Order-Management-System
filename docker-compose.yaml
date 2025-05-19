@@ -5,8 +5,8 @@ services:
     image: postgres:16
     container_name: spring_postgres
     environment:
-      POSTGRES_USER: ivan
-      POSTGRES_PASSWORD: ivanpass
+      POSTGRES_USER: ejemplo
+      POSTGRES_PASSWORD: ejemplopass
       POSTGRES_DB: ordertracker
     ports:
       - "5432:5432"
