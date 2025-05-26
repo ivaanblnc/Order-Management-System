@@ -31,12 +31,18 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<Map<String, String>> registerAuth(@RequestBody DTOUser registerUser) {
+        System.out.println("----- [REGISTRO] Intentando registrar usuario -----");
+        System.out.println("Payload recibido: " + registerUser);
+
         try {
             userDetailsService.registerUser(registerUser);
+            System.out.println("Registro exitoso para: " + registerUser.getUsername());
             Map<String, String> response = new HashMap<>();
             response.put("message", "Usuario registrado correctamente");
             return ResponseEntity.ok(response);
         } catch (Exception e) {
+            System.out.println("Error al registrar usuario: " + e.getMessage());
+            e.printStackTrace();
             Map<String, String> error = new HashMap<>();
             error.put("message", "Error al registrar usuario: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
